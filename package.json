@@ -1,0 +1,26 @@
+{
+  "name": "polymorf",
+  "version": "0.0.0",
+  "description": "Polymorphic function dispatch",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alanshaw/polymorf.git"
+  },
+  "keywords": [
+    "polymorphic",
+    "polymorphism",
+    "polymorph",
+    "dispatch",
+    "multimethods"
+  ],
+  "author": "Alan Shaw",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alanshaw/polymorf/issues"
+  },
+  "homepage": "https://github.com/alanshaw/polymorf"
+}
