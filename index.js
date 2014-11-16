@@ -11,6 +11,7 @@ function isType (type, val) {
       || (type == Boolean && is.boolean(val))
       || (type == RegExp && is.regExp(val))
       || (type == Date && is.date(val))
+      || (type == null && is.nullOrUndefined(val))
       || (val instanceof type)
 }
 

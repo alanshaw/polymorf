@@ -121,3 +121,44 @@ test('Throws when no matching signature found', function (t) {
   })
   t.end()
 })
+
+test('Match against null/undefined', function (t) {
+  t.plan(9)
+
+  var counts = {success: 0, failure: 0}
+
+  var result = {foo: 'bar'}
+
+  var callback = polymorf(
+    [null, Object],
+    function success (er, res) {
+      t.ifError(er, 'er should NEVER be not null/undefined')
+      t.equal(res, result, 'Result should be expected object')
+      counts.success++
+    },
+    [Error],
+    function failure (er) {
+      t.ok(er, 'Failure!')
+      counts.failure++
+    }
+  )
+
+  function doThing (succeed, cb) {
+    if (succeed) {
+      cb(null, result)
+    } else {
+      cb(new Error('Failed to succeed'))
+    }
+  }
+
+  doThing(true, callback)
+  doThing(true, callback)
+  doThing(false, callback)
+  doThing(false, callback)
+  doThing(false, callback)
+
+  t.equal(counts.success, 2, 'Correct success count')
+  t.equal(counts.failure, 3, 'Correct failure count')
+
+  t.end()
+})
