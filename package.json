@@ -1,6 +1,6 @@
 {
   "name": "polymorf",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Polymorphic function dispatch",
   "main": "index.js",
   "scripts": {
