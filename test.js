@@ -1,4 +1,5 @@
 var test = require('tape')
+var inherits = require('util').inherits
 var polymorf = require('./')
 
 test('Dispatch to multiple functions', function (t) {
@@ -28,20 +29,95 @@ test('Dispatch to multiple functions', function (t) {
 
 test('Sets "this" correctly when polymorphic function is a method', function (t) {
   t.plan(1)
+
+  var privateProperty = 'xxxx'
+
+  function Thing () {
+    this._privateProperty = privateProperty
+  }
+
+  Thing.prototype.do = polymorf([], function () {
+    return this._privateProperty
+  })
+
+  var thing = new Thing
+
+  t.equal(thing.do(), privateProperty, 'This set correctly in handler')
   t.end()
 })
 
 test('Returns value from polymorphic handler', function (t) {
   t.plan(1)
+  var doubler = polymorf([Number], function double (num) {
+    return num * 2
+  })
+  t.equal(doubler(2), 4, 'Double two should be 4')
   t.end()
 })
 
 test('Add/remove polymorphic handler dynamically', function (t) {
-  t.plan(1)
+  t.plan(4)
+
+  var add = polymorf(
+    [String, String],
+    function (a, b) {
+      return parseFloat(a) + parseFloat(b)
+    }
+  )
+
+  t.equal(add('1', '0.2'), 1.2, '"1" + "0.2" should equal 1.2')
+
+  // Shouldn't be able to add two numbers together...yet!
+  t.throws(function () { add(5, 2) })
+
+  add.polymorf.add(
+    [Number, Number],
+    function (a, b) {
+      return a + b
+    }
+  )
+
+  t.equal(add(3, 6), 9, '3 + 6 should equal 9')
+
+  add.polymorf.remove([Number, Number])
+
+  // Shouldn't be able to add two numbers anymore
+  t.throws(function () { add(5, 2) })
+
   t.end()
 })
 
 test('Match against custom "classes"', function (t) {
   t.plan(1)
+
+  function Vehicle () {}
+  function Car () {}
+  inherits(Car, Vehicle)
+
+  var fn = polymorf(
+    [Vehicle],
+    function (vehicle) {
+      return vehicle
+    },
+    [Vehicle, Function],
+    function (vehicle, callback) {
+      callback(null, vehicle)
+    }
+  )
+
+  var car = new Car
+
+  fn(car, function (er, vehicle) {
+    t.equals(vehicle, car, 'Vehicle should be car')
+    t.end()
+  })
+})
+
+test('Throws when no matching signature found', function (t) {
+  t.plan(1)
+  t.throws(function () {
+    var fn = polymorf()
+    fn(1, 2, 3)
+  })
   t.end()
 })
