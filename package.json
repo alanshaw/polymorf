@@ -22,5 +22,11 @@
   "bugs": {
     "url": "https://github.com/alanshaw/polymorf/issues"
   },
-  "homepage": "https://github.com/alanshaw/polymorf"
+  "homepage": "https://github.com/alanshaw/polymorf",
+  "dependencies": {
+    "is-type": "0.0.1"
+  },
+  "devDependencies": {
+    "tape": "^3.0.3"
+  }
 }
