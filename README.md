@@ -1,4 +1,5 @@
-# polymorf
+# polymorf [![Build Status](https://img.shields.io/travis/alanshaw/polymorf.svg?style=flat)](https://travis-ci.org/alanshaw/polymorf) [![Dependency Status](https://david-dm.org/alanshaw/polymorf.svg?style=flat)](https://david-dm.org/alanshaw/polymorf)
+
 Create a polymorphic function that dispatches to different handler functions based on the type of the parameters it is passed.
 
 ## Example
