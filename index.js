@@ -1,8 +1,11 @@
 var is = require('is-type')
 
+var Any = {}
+
 // Check if the value is-a type
 function isType (type, val) {
-  return (type == Object && is.object(val))
+  return (type == Any)
+      || (type == Object && is.object(val))
       || (type == Function && is.function(val))
       || (type == String && is.string(val))
       || (type == Error && is.error(val))
@@ -71,3 +74,5 @@ module.exports = function () {
 
   return dispatch
 }
+
+module.exports.Any = Any

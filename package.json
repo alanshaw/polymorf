@@ -4,7 +4,8 @@
   "description": "Polymorphic function dispatch",
   "main": "index.js",
   "scripts": {
-    "test": "tape test.js"
+    "test": "tape test.js",
+    "coverage": "istanbul cover node_modules/.bin/tape test.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "is-type": "0.0.1"
   },
   "devDependencies": {
+    "istanbul": "^0.3.2",
     "tape": "^3.0.3"
   }
 }

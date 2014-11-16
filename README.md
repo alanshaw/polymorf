@@ -45,6 +45,10 @@ The following types are permitted as values in the signature array.
 
 You can also pass your own custom types. Internally polymorf will check if values match the type in the signature using the `instanceof` operator.
 
+##### `polymorf.Any`
+
+Use the `polymorf.Any` type matcher to match **any** value.
+
 ### `fn.polymorf.add(signature, handler)`
 
 Given a polymorphic function `fn`, a new handler for a signature can be dynamically added. e.g.

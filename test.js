@@ -1,6 +1,7 @@
 var test = require('tape')
 var inherits = require('util').inherits
 var polymorf = require('./')
+var Any = polymorf.Any
 
 test('Dispatch to multiple functions', function (t) {
   t.plan(5)
@@ -159,6 +160,25 @@ test('Match against null/undefined', function (t) {
 
   t.equal(counts.success, 2, 'Correct success count')
   t.equal(counts.failure, 3, 'Correct failure count')
+
+  t.end()
+})
+
+test('Match against wildcard', function (t) {
+  t.plan(8)
+
+  var fn = polymorf([Any], function (thing) {
+    t.ok(true, thing + ' matched Any')
+  })
+
+  fn("Foo")
+  fn(138)
+  fn(new Error)
+  fn(null)
+  fn(function () {})
+  fn(NaN)
+  fn(0)
+  fn(true)
 
   t.end()
 })
